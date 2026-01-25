@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -15,5 +16,10 @@ public class ProductService {
     private ProductRepo productrepo;
     public List<Product> getAllProducts() {
         return productrepo.findAll();
+    }
+
+    public Product getProductById(Integer id) {
+        return productrepo.findById(id).orElse(new Product(-1));
+
     }
 }
