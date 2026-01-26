@@ -47,6 +47,12 @@ Product product = productservice.getProductById(productId);
 return new ResponseEntity<>(product.getImageData(), HttpStatus.OK);
     }
 
+    @GetMapping("/products/search")
+    public ResponseEntity<List<Product>> search(@RequestParam String keyword){
+List<Product> products = productservice.searchProducts(keyword);
+return new ResponseEntity<>(products,HttpStatus.OK);
+    }
+
 
     //@RequestPart helps to get two request body, in our case we are getting product data and image separately
     @PostMapping("/product")
