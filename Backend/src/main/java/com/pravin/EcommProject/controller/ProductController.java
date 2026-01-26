@@ -78,6 +78,8 @@ return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         Product product = productservice.getProductById(id);
         if(product!=null){
             productservice.deleteProduct(id);
+            return new ResponseEntity<>("Deleted Successfully", HttpStatus.OK);
         }
+        return new ResponseEntity<>("Something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
