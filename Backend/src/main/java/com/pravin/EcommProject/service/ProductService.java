@@ -25,11 +25,15 @@ public class ProductService {
 
     }
 
-    public Product addProduct(Product product, MultipartFile image) throws IOException {
+    public Product addorUpdateProduct(Product product, MultipartFile image) throws IOException {
         product.setImageName(image.getOriginalFilename());
         product.setImageType(image.getContentType());
         product.setImageData(image.getBytes());
         return productrepo.save(product);
 
+    }
+
+    public void deleteProduct(int id) {
+        productrepo.deleteById(id);
     }
 }

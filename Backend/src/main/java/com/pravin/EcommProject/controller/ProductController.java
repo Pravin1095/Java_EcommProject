@@ -53,11 +53,31 @@ return new ResponseEntity<>(product.getImageData(), HttpStatus.OK);
     public ResponseEntity<?> addProduct(@RequestPart Product product, @RequestPart MultipartFile imageFile){
         Product savedProduct = null;
         try {
-            savedProduct = productservice.addProduct(product, imageFile);
+            savedProduct = productservice.addorUpdateProduct(product, imageFile);
             return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
         } catch (IOException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    @PutMapping("/product/{id}")
+    public ResponseEntity<String> updateProduct(@PathVariable int id, @RequestPart Product product, @RequestPart MultipartFile imageFile){
+        Product updatedProduct = null;
+   try{
+       updatedProduct = productservice.addorUpdateProduct(product,imageFile);
+       return new ResponseEntity<>("Updated",HttpStatus.OK);
+   }
+   catch(IOException e){
+return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+   }
+    }
+
+    @DeleteMapping("/product/{id}")
+    public ResponseEntity<String> deleteProduct(@PathVariable int id){
+        Product product = productservice.getProductById(id);
+        if(product!=null){
+            productservice.deleteProduct(id);
+        }
     }
 }
