@@ -41,6 +41,12 @@ return new ResponseEntity<>(productservice.getAllProducts(), HttpStatus.OK) ;
         }
     }
 
+    @GetMapping("/product/{productId}/image")
+    public ResponseEntity<byte[]> getImageByProductId(@PathVariable int productId){
+Product product = productservice.getProductById(productId);
+return new ResponseEntity<>(product.getImageData(), HttpStatus.OK);
+    }
+
 
     //@RequestPart helps to get two request body, in our case we are getting product data and image separately
     @PostMapping("/product")
