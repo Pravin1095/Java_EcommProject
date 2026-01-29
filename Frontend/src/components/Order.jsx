@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 const Order = () => {
-  const baseUrl = import.meta.env.VITE_BASE_URL;
+  // const baseUrl = import.meta.env.VITE_BASE_URL;
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,18 +11,18 @@ const Order = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`${baseUrl}/api/orders`);
+        const response = await axios.get(`http://localhost:8080/api/orders`);
         setOrders(response.data);
         setLoading(false);
       } catch (error) {
-        console.log(error);
+        console.log("Check error", error);
         setError("Failed to fetch orders. Please try again later.");
         setLoading(false);
       }
     };
 
     fetchOrders();
-  }, [baseUrl]);
+  }, []);
 
   const toggleOrderDetails = (orderId) => {
     if (expandedOrder === orderId) {
